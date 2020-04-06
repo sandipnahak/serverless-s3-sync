@@ -113,6 +113,10 @@ class ServerlessS3Sync {
       if (s.hasOwnProperty('deleteRemoved')) {
           deleteRemoved = s.deleteRemoved;
       }
+      let SSE="None";
+      if (s.hasOwnProperty('ServerSideEncryption')) {                 
+          SSE = s.ServerSideEncryption;                     
+      }
 
       return this.getBucketName(s)
         .then(bucketName => {
@@ -146,7 +150,8 @@ class ServerlessS3Sync {
               s3Params: {
                 Bucket: bucketName,
                 Prefix: bucketPrefix,
-                ACL: acl
+                ACL: acl,
+                ServerSideEncryption: SSE
               }
             };
             if (typeof(defaultContentType) != 'undefined') {
