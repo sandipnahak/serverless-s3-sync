@@ -10,8 +10,8 @@
     "serverless",
     "s3"
   ],
-  "author": "k1LoW <k1lowxb@gmail.com> (https://github.com/k1LoW)",
-  "repository": "k1LoW/serverless-s3-sync",
+  "author": "sandeep.cne@gmail.com",
+  "repository": "sandipnahak/serverless-s3-sync",
   "license": "MIT",
   "dependencies": {
     "@auth0/s3": "^1.0.0",
