@@ -113,9 +113,9 @@ class ServerlessS3Sync {
       if (s.hasOwnProperty('deleteRemoved')) {
           deleteRemoved = s.deleteRemoved;
       }
-      let SSE="None";
-      if (s.hasOwnProperty('ServerSideEncryption')) {                 
-          SSE = s.ServerSideEncryption;                     
+      let SSE={};
+      if (s.hasOwnProperty('ServerSideEncryption')) {
+          SSE = {ServerSideEncryption: s.ServerSideEncryption};
       }
 
       return this.getBucketName(s)
@@ -134,7 +134,7 @@ class ServerlessS3Sync {
               deleteRemoved,
               followSymlinks: followSymlinks,
               getS3Params: (localFile, stat, cb) => {
-                const s3Params = {};
+                const s3Params = Object.assign({}, SSE);
 
                 if(Array.isArray(s.params)) {
                   s.params.forEach((param) => {
@@ -150,8 +150,7 @@ class ServerlessS3Sync {
               s3Params: {
                 Bucket: bucketName,
                 Prefix: bucketPrefix,
-                ACL: acl,
-                ServerSideEncryption: SSE
+                ACL: acl
               }
             };
             if (typeof(defaultContentType) != 'undefined') {
